@@ -26,17 +26,17 @@
           编辑/设计问卷
         </div>
         <div v-if="status !== 3" class="btn btn-sm btn-ghost" @click="() => updateStatus(status === 1 ? 2 : 1)">
-          {{ status===1 ? "发布问卷" : "下架问卷" }}
+          {{ status === 1 ? "发布问卷" : "下架问卷" }}
         </div>
         <div class="btn btn-sm btn-ghost" @click="delQues">
           删除问卷
         </div>
       </div>
       <div class="absolute right-5 flex flex-row gap-5">
-        <div v-if="status===2" class="btn btn-sm btn-ghost" @click="showQrCode">
+        <div v-if="status === 2" class="btn btn-sm btn-ghost" @click="showQrCode">
           查看分享二维码
         </div>
-        <div v-if="status===2" class="btn btn-sm btn-ghost" @click="handleCopy">
+        <div v-if="status === 2 || status === 1" class="btn btn-sm btn-ghost" @click="handleCopy">
           复制分享链接
         </div>
         <div class="pt-4" :class="classMap[status]">
@@ -72,6 +72,9 @@ const props = defineProps<{
 const questionnaireURL = computed(
   () => {
     const Key = "JingHong";
+    if (props.status === QuesStatus.DRAFT) {
+      return baseURL + "/View?status=1&id=" + CryptoJS.AES.encrypt(props.idName + "", Key).toString();
+    }
     return baseURL + "/View?id=" + CryptoJS.AES.encrypt(props.idName + "", Key).toString();
   }
 );

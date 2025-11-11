@@ -1,37 +1,23 @@
 <template>
-  <div class="fixed inset-0 flex items-center justify-center bg-red-50 text-red-950 dark:text-white dark:bg-black">
-    <div class="bg-white  dark:bg-customGray flex-col overflow-auto lg:w-1/2 w-full sm:w-2/3  py-30 sm:px-15 px-10 h-full  shadow-lg">
+  <div class="fixed inset-0 flex items-center justify-center" :class="bgClasses">
+    <div
+      class="bg-white  dark:bg-customGray flex-col overflow-auto lg:w-1/2 w-full sm:w-2/3  py-30 sm:px-15 px-10 h-full  shadow-lg">
       <div class="flex-col justify-center relative">
         <div class="flex justify-center">
           <div class="absolute top-0 right-10 z-10 mr-10">
             <button
               class="flex items-center justify-center w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-800 transition-colors duration-300"
-              @click="switchDarkMode"
-            >
+              @click="switchDarkMode">
               <span v-if="!darkModeStatus">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-50 w-50 text-yellow-500"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M12 3v1m0 16v1m9-9h1m-16 0H3m15.364-7.364l-.707.707M6.636 17.364l-.707.707m12.728-12.728l-.707.707M6.636 6.636l-.707-.707M12 15.5A3.5 3.5 0 1 0 12 8.5A3.5 3.5 0 0 0 12 15.5z"
-                  />
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-50 w-50 text-yellow-500" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 3v1m0 16v1m9-9h1m-16 0H3m15.364-7.364l-.707.707M6.636 17.364l-.707.707m12.728-12.728l-.707.707M6.636 6.636l-.707-.707M12 15.5A3.5 3.5 0 1 0 12 8.5A3.5 3.5 0 0 0 12 15.5z" />
                 </svg>
               </span>
               <span v-else>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-60 w-60 text-customGray_more_shallow"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-60 w-60 text-customGray_more_shallow" fill="none"
+                  viewBox="0 0 24 24" stroke="currentColor">
                   <path d="M12 3c0 6.627 0 12 0 12a6 6 0 1 1 0-12z" />
                 </svg>
               </span>
@@ -40,12 +26,7 @@
 
           <el-image class="w-2/3" src="https://img.lonesome.cn/jhwl/project/questionnaire/jxh_logo.webp" />
         </div>
-        <el-skeleton
-          :loading="loading"
-          :rows="1"
-          animated
-          style="height: 60px"
-        >
+        <el-skeleton :loading="loading" :rows="1" animated style="height: 60px">
           <template #default>
             <div v-if="showData" class="flex flex-col ">
               <div class="divider" />
@@ -54,7 +35,8 @@
               </div>
               <div v-if="showData.quesConfig.desc !== ''" class="items-top my-10 items-start md:mx-20 mx-10">
                 <div class="items-top my-10 items-start ">
-                  <pre class="text-gray-500 flex break-all text-[1rem] dark:text-white dark:opacity-50">{{ showData.quesConfig.desc }}</pre>
+                  <pre
+                    class="text-gray-500 flex break-all text-[1rem] dark:text-white dark:opacity-50">{{ showData.quesConfig.desc }}</pre>
                 </div>
               </div>
             </div>
@@ -66,11 +48,17 @@
               <span class="text-red-950 dark:text-red-400 dark:opacity-80">截止时间:</span>
               <span>{{ time }}</span>
             </div>
-            <div v-if="showData.baseConfig.dayLimit !== 0 && showData.baseConfig.verify" class="flex gap-20 items-center my-10  md:ml-20 ml-10">
-              <span class=" dark:opacity-80 text-gray-700 dark:text-gray-400">本问卷每天最多提交 <span class="text-red-950 dark:text-red-400 dark:opacity-80">{{ showData.baseConfig.dayLimit }} </span> 次</span>
+            <div v-if="showData.baseConfig.dayLimit !== 0 && showData.baseConfig.verify"
+              class="flex gap-20 items-center my-10  md:ml-20 ml-10">
+              <span class=" dark:opacity-80 text-gray-700 dark:text-gray-400">本问卷每天最多提交 <span
+                  class="text-red-950 dark:text-red-400 dark:opacity-80">{{ showData.baseConfig.dayLimit }} </span>
+                次</span>
             </div>
-            <div v-if="showData.baseConfig.sumLimit !== 0 && showData.baseConfig.verify" class="flex gap-20 items-center my-10  md:ml-20 ml-10">
-              <span class=" dark:opacity-80 text-gray-700 dark:text-gray-400">本问卷总共最多提交 <span class="text-red-950 dark:text-red-400 dark:opacity-80">{{ showData.baseConfig.sumLimit }} </span> 次</span>
+            <div v-if="showData.baseConfig.sumLimit !== 0 && showData.baseConfig.verify"
+              class="flex gap-20 items-center my-10  md:ml-20 ml-10">
+              <span class=" dark:opacity-80 text-gray-700 dark:text-gray-400">本问卷总共最多提交 <span
+                  class="text-red-950 dark:text-red-400 dark:opacity-80">{{ showData.baseConfig.sumLimit }} </span>
+                次</span>
             </div>
             <div class="divider my-10" />
           </template>
@@ -81,17 +69,9 @@
           <!-- 根据问题类型渲染组件 -->
           <div v-if="q.quesSetting.questionType === 1">
             <el-skeleton animated :loading="loading">
-              <radio
-                v-model:answer="q.answer"
-                :title="q.subject"
-                :options="q.options"
-                :serial_num="q.serialNum"
-                :unique="q.quesSetting.unique"
-                :required="q.quesSetting.required"
-                :other-option="q.quesSetting.otherOption"
-                :describe="q.description"
-                :questionnaire-i-d="decryptedId"
-              />
+              <radio v-model:answer="q.answer" :title="q.subject" :options="q.options" :serial_num="q.serialNum"
+                :unique="q.quesSetting.unique" :required="q.quesSetting.required"
+                :other-option="q.quesSetting.otherOption" :describe="q.description" :questionnaire-i-d="decryptedId" />
             </el-skeleton>
           </div>
           <div v-if="q.quesSetting.questionType === 2">
@@ -100,19 +80,11 @@
                 <skeleton-card />
               </template>
               <template #default>
-                <checkbox
-                  v-model:answer="q.answer"
-                  :title="q.subject"
-                  :options="q.options"
-                  :serial_num="q.serialNum"
-                  :unique="q.quesSetting.unique"
-                  :required="q.quesSetting.required"
-                  :other-option="q.quesSetting.otherOption"
-                  :describe="q.description"
-                  :questionnaire-i-d="decryptedId as string"
-                  :minimum_option="q.quesSetting.minimumOption"
-                  :maximum_option="q.quesSetting.maximumOption"
-                />
+                <checkbox v-model:answer="q.answer" :title="q.subject" :options="q.options" :serial_num="q.serialNum"
+                  :unique="q.quesSetting.unique" :required="q.quesSetting.required"
+                  :other-option="q.quesSetting.otherOption" :describe="q.description"
+                  :questionnaire-i-d="decryptedId as string" :minimum_option="q.quesSetting.minimumOption"
+                  :maximum_option="q.quesSetting.maximumOption" />
               </template>
             </el-skeleton>
           </div>
@@ -122,15 +94,8 @@
                 <skeleton-card />
               </template>
               <template #default>
-                <fill
-                  v-model:answer="q.answer"
-                  :title="q.subject"
-                  :serial_num="q.serialNum"
-                  :reg="q.quesSetting.reg"
-                  :unique="q.quesSetting.unique"
-                  :required="q.quesSetting.required"
-                  :describe="q.description"
-                />
+                <fill v-model:answer="q.answer" :title="q.subject" :serial_num="q.serialNum" :reg="q.quesSetting.reg"
+                  :unique="q.quesSetting.unique" :required="q.quesSetting.required" :describe="q.description" />
               </template>
             </el-skeleton>
           </div>
@@ -140,14 +105,8 @@
                 <skeleton-card />
               </template>
               <template #default>
-                <text-area
-                  v-model:answer="q.answer"
-                  :title="q.subject"
-                  :serial_num="q.serialNum"
-                  :unique="q.quesSetting.unique"
-                  :required="q.quesSetting.required"
-                  :describe="q.description"
-                />
+                <text-area v-model:answer="q.answer" :title="q.subject" :serial_num="q.serialNum"
+                  :unique="q.quesSetting.unique" :required="q.quesSetting.required" :describe="q.description" />
               </template>
             </el-skeleton>
           </div>
@@ -157,102 +116,90 @@
                 <skeleton-card />
               </template>
               <template #default>
-                <file
-                  v-model:answer="q.answer"
-                  :title="q.subject"
-                  :serial_num="q.serialNum"
-                  :unique="q.quesSetting.unique"
-                  :required="q.quesSetting.required"
-                  :describe="q.description"
-                />
+                <file v-model:answer="q.answer" :title="q.subject" :serial_num="q.serialNum"
+                  :unique="q.quesSetting.unique" :required="q.quesSetting.required" :describe="q.description" />
               </template>
             </el-skeleton>
           </div>
         </div>
-        <div class="flex justify-center items-center py-50">
-          <button v-if="decryptedId !== '' && !isOutDate" class="btn  w-1/3 bg-red-800 text-red-50 dark:opacity-75 hover:bg-red-600" @click="handleSubmit">
+
+        <div class="flex justify-center items-center pt-50 pb-20">
+          <button v-if="decryptedId !== '' && !isOutDate && showData.status === 2"
+            class="btn  w-1/3 bg-red-800 text-red-50 dark:opacity-75 hover:bg-red-600" @click="handleSubmit">
             提交问卷
           </button>
+          <button v-if="decryptedId !== '' && !isOutDate && showData.status === 1"
+            class="btn  w-1/3 bg-red-800 text-red-50 dark:opacity-75 hover:bg-red-600" @click="refuseSubmit">
+            预览模式，无法提交
+          </button>
+        </div>
+        <div v-if="decryptedId !== '' && !isOutDate && showData.status === 1"
+          class="lex justify-center items-center py-20">
+          <div class="text-red-600 dark:text-red-400 text-center">
+            <p class="text-slate-950 dark:text-red-100">您设置的提交限制：<br /></p>
+            <div class="w-2/3 mx-auto border-t border-b border-gray-200 my-4 dark:border-gray-700 my-4"></div>
+            每日提交次数：{{ showData.baseConfig.dayLimit === 0 ? "不限制次数" : showData.baseConfig.dayLimit + '次' }} <br />
+            总提交次数：{{ showData.baseConfig.sumLimit === 0 ? "不限制次数" : showData.baseConfig.sumLimit + '次' }} <br />
+            是否需要统一身份验证：{{ showData?.baseConfig.verify ? '是' : '否' }}<br />
+            是否仅允许本科生提交：{{ showData?.baseConfig.undergradOnly ? '是' : '否' }}<br />
+          </div>
         </div>
       </div>
       <div v-if="showData && showData.surveyType === 1" class="flex flex-col  ">
         <div v-for="(q, index) in showData.quesConfig.questionList" :key="index">
-          <vote
-            v-model:answer="q.answer"
-            :title="q.subject"
-            :options="q.options"
-            :serial_num="q.serialNum"
-            :unique="q.quesSetting.unique"
-            :required="q.quesSetting.required"
-            :other-option="q.quesSetting.otherOption"
-            :describe="q.describe"
-            :questionnaire-i-d="decryptedId"
-            :minimum_option="q.quesSetting.minimumOption"
-            :maximum_option="q.quesSetting.maximumOption"
-            :count="resultData"
-          />
+          <vote v-model:answer="q.answer" :title="q.subject" :options="q.options" :serial_num="q.serialNum"
+            :unique="q.quesSetting.unique" :required="q.quesSetting.required" :other-option="q.quesSetting.otherOption"
+            :describe="q.describe" :questionnaire-i-d="decryptedId" :minimum_option="q.quesSetting.minimumOption"
+            :maximum_option="q.quesSetting.maximumOption" :count="resultData" />
         </div>
         <div class="flex justify-center items-center py-30 mx-10">
-          <button v-if="decryptedId !== '' && !isOutDate" class="btn w-full bg-red-800 text-red-50 dark:opacity-75 hover:bg-red-600 rounded-none" @click=" handleSubmit">
+          <button v-if="decryptedId !== '' && !isOutDate"
+            class="btn w-full bg-red-800 text-red-50 dark:opacity-75 hover:bg-red-600 rounded-none"
+            @click="handleSubmit">
             提交问卷
           </button>
         </div>
       </div>
-      <modal
-        modal-id="QuestionnaireSubmit"
-        white
-        un-rounded
-        no-pb
-      >
+      <modal modal-id="QuestionnaireSubmit" white un-rounded no-pb>
         <template #title>
           <span class="text-red-950 dark:text-red-500 text-[1.5rem]">提交问卷</span>
         </template>
 
         <template v-if="showData && !showData.baseConfig.verify || tokenOutDate" #default>
           你确认要提交问卷吗?
-          <el-button
-            v-if="showData && !showData.baseConfig.verify || tokenOutDate"
+          <el-button v-if="showData && !showData.baseConfig.verify || tokenOutDate"
             class="btn bg-red-800 text-red-50 w-full hover:bg-red-600 rounded-none h-40 min-h-0 mt-15"
-            :disabled="disabledInput"
-            @click="submit"
-          >
+            :disabled="disabledInput" @click="submit">
             确认
           </el-button>
         </template>
         <template v-else #default>
           <div class="flex-col">
             <div v-if="showData?.baseConfig.undergradOnly" class="text-sm">
-              该问卷仅限校内{{ showData?.baseConfig.undergradOnly ? '本科生':'学生' }}作答,提交前需要先进行<span class="font-bold">统一身份认证</span>
+              该问卷仅限校内{{ showData?.baseConfig.undergradOnly ? '本科生' : '学生' }}作答,提交前需要先进行<span
+                class="font-bold">统一身份认证</span>
             </div>
             <div class="flex-col gap-10 mt-10">
-              <span class="flex gap-10 text-sm items-center"><span class="w-110 flex justify-end">职工号/学号</span> <el-input v-model="verifyData.stu_id" :disabled="disabledInput" /></span>
-              <span class="text-sm flex gap-10 mt-10 items-center"><span class="w-110 flex justify-end">密码 </span><el-input
-                v-model="verifyData.password"
-                :disabled="disabledInput"
-                type="password"
-              /></span>
+              <span class="flex gap-10 text-sm items-center"><span class="w-110 flex justify-end">职工号/学号</span>
+                <el-input v-model="verifyData.stu_id" :disabled="disabledInput" /></span>
+              <span class="text-sm flex gap-10 mt-10 items-center"><span class="w-110 flex justify-end">密码
+                </span><el-input v-model="verifyData.password" :disabled="disabledInput" type="password" /></span>
             </div>
             <div class="flex justify-end">
-              <a href="https://oauth.zjut.edu.cn/im/V3/securitycenter/findPwd/index.zf" style=" text-decoration: underline;" class="text-sm my-5 text-blue-500 dark:text-white ">
+              <a href="https://oauth.zjut.edu.cn/im/V3/securitycenter/findPwd/index.zf"
+                style=" text-decoration: underline;" class="text-sm my-5 text-blue-500 dark:text-white ">
                 忘记密码?
               </a>
             </div>
           </div>
           <div>
-            <el-button
-              v-if="showData && !showData.baseConfig.verify || tokenOutDate"
+            <el-button v-if="showData && !showData.baseConfig.verify || tokenOutDate"
               class="btn bg-red-800 text-red-50 w-full hover:bg-red-600 rounded-none h-40 min-h-0"
-              :disabled="disabledInput"
-              @click="submit"
-            >
+              :disabled="disabledInput" @click="submit">
               确认
             </el-button>
-            <el-button
-              v-else
-              class="btn bg-red-800 text-red-50 w-full hover:bg-red-600 rounded-none h-40 min-h-0"
-              :disabled="disabledInput"
-              @click="verify"
-            >
+            <el-button v-else class="btn bg-red-800 text-red-50 w-full hover:bg-red-600 rounded-none h-40 min-h-0"
+              :disabled="disabledInput" @click="verify">
               确认
             </el-button>
           </div>
@@ -318,6 +265,15 @@ const verifyData = ref({
 const optionStore = useMainStore().useOptionStore();
 const questionnaireStore = useMainStore().useQuetionnaireStore();
 const disabledInput = ref(false);
+const bgClasses = computed(() => {
+  if (!showData.value || typeof showData.value.status === "undefined") {
+    return "bg-red-50 text-red-950 dark:text-white dark:bg-black";
+  }
+  if (showData.value.status === 2) {
+    return "bg-amber-50 text-blue-900 dark:bg-blue-900 dark:text-blue-200";
+  }
+  return "bg-red-50 text-red-950 dark:text-white dark:bg-black";
+});
 onMounted(async () => {
 
   loginStore.setShowHeader(false);
@@ -398,6 +354,9 @@ const handleSubmit = () => {
   if (allowSend.value) {
     showModal("QuestionnaireSubmit");
   }
+};
+const refuseSubmit = () => {
+  ElNotification.info("预览模式下无法提交问卷");
 };
 const getQuestionnaireView = async () => {
   if (decryptedId.value) {
@@ -528,12 +487,15 @@ const submit = () => {
 
 </script>
 
-  <style scoped>
-  pre {
-    white-space: pre-wrap; /* css-3 */
-    word-wrap: break-word; /* InternetExplorer5.5+ */
-    white-space: -moz-pre-wrap; /* Mozilla,since1999 */
-    white-space: -o-pre-wrap; /* Opera7 */
-  }
-
-  </style>
+<style scoped>
+pre {
+  white-space: pre-wrap;
+  /* css-3 */
+  word-wrap: break-word;
+  /* InternetExplorer5.5+ */
+  white-space: -moz-pre-wrap;
+  /* Mozilla,since1999 */
+  white-space: -o-pre-wrap;
+  /* Opera7 */
+}
+</style>
